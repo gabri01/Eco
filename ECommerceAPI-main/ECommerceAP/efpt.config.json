@@ -1,0 +1,67 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "ECommerceDBContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "ECommerceAP",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+  "Tables": [
+    {
+      "Name": "[dbo].[Categoria]",
+      "ObjectType": 0
+    },
+    {
+      "Name": "[dbo].[Corriere]",
+      "ObjectType": 0
+    },
+    {
+      "Name": "[dbo].[Ordine]",
+      "ObjectType": 0
+    },
+    {
+      "Name": "[dbo].[Pagamento]",
+      "ObjectType": 0
+    },
+    {
+      "Name": "[dbo].[Prodotto]",
+      "ObjectType": 0
+    },
+    {
+      "Name": "[dbo].[Ruolo]",
+      "ObjectType": 0
+    },
+    {
+      "Name": "[dbo].[Utente]",
+      "ObjectType": 0
+    }
+  ],
+
+  //localhost ???
+   "UiHint": "6Q81TQ2\\SQLEXPRESS.ECommerceDB",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}

@@ -1,0 +1,53 @@
+﻿<Properties StartupConfiguration="{BEFB289C-0553-41F2-851E-DDDAFB5C5521}|Default" GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ECommerceAP/Controllers/OrdineController.cs">
+    <Files>
+      <File FileName="Models/Models/NuovoOrdine.cs" />
+      <File FileName="ECommerceAP/Controllers/OrdineController.cs" Line="98" Column="1" />
+      <File FileName="DataAccessLogic/ECommerceDBContext.cs" />
+      <File FileName="Models/Models/Ordine.cs" />
+      <File FileName="Models/Models/StatoOrdine.cs" />
+      <File FileName="ECommerceAP/Controllers/CategoriaController.cs" />
+      <File FileName="Interfaces/IBusiness.cs" />
+      <File FileName="Interfaces/IDAL.cs" />
+      <File FileName="Interfaces/IOrdine.cs" />
+      <File FileName="Interfaces/IOrdiniProdotti.cs" />
+      <File FileName="BusinessClass/BusinessClass.cs" />
+      <File FileName="ECommerceAP/Controllers/UtenteController.cs" />
+      <File FileName="Models/Models/Utente.cs" />
+      <File FileName="Models/Models/OrdiniProdotti.cs" />
+      <File FileName="Interfaces/IPagamento.cs" />
+      <File FileName="Models/Models/Login.cs" />
+      <File FileName="Models/Models/ProdottoNuovoOrdine.cs" />
+      <File FileName="ECommerceAP/Program.cs" />
+      <File FileName="ECommerceAP/Controllers/CorriereController.cs" />
+      <File FileName="ECommerceAP/ECommerceDB.bak" />
+      <File FileName="ECommerceAP/Controllers/PagamentoController.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ECommerceAP" expanded="True">
+            <Node name="BusinessLogic" expanded="True" />
+            <Node name="DataAccessLogic" expanded="True" />
+            <Node name="ECommerceAP" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="OrdineController.cs" selected="True" />
+              </Node>
+            </Node>
+            <Node name="Interfaces" expanded="True" />
+            <Node name="Models" expanded="True">
+              <Node name="Models" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.ECommerceAP PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
