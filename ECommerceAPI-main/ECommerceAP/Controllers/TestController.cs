@@ -35,7 +35,7 @@ namespace ECommerceAP.Controllers
                 }
                     catch
                 {
-                return BadRequest("Email non");
+                return BadRequest("Email non inviata");
              }
         }
     }

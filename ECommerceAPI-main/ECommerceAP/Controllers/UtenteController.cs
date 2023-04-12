@@ -18,7 +18,7 @@ namespace ECommerceAP.Controllers
             this.business = business;
         }
         [HttpGet("GetByID")]
-        [Authorize]
+        //[Authorize(Roles = "Amministratore")]
         public IActionResult Get()
         {
             var IdUtenteEmailClaim = User.Claims.FirstOrDefault(e => e.Type.Equals("Email",
@@ -30,7 +30,7 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpPut("Modifica")]
-        [Authorize]
+        //[Authorize(Roles = "Utente")]
         public IActionResult Update(string Nome, string Cognome, string Email)
         {
             var IdUtenteEmailClaim = User.Claims.FirstOrDefault(e => e.Type.Equals("Email",

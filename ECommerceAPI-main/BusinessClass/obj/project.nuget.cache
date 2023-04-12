@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9ETSSdDTxnqZQK/DJpAx1nDY70SZRZQRc1wG0g9Vr8up9fY9jbaSvDps7HPfonEK+tcucjCWvRwDFF3a9Ffk1w==",
+  "dgSpecHash": "l8l6ph4sTGAg3/Nh/d6irDNUz/jAT25AsQ+TQcMre4zkVS84+V10bOUZZZiIaNmzQUcIC/9FneFfj2tMkqY9NA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\BusinessClass\\BusinessLogic.csproj",
+  "projectFilePath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\BusinessClass\\BusinessLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Utente\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.15\\microsoft.aspnetcore.authentication.jwtbearer.6.0.15.nupkg.sha512",
     "C:\\Users\\Utente\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

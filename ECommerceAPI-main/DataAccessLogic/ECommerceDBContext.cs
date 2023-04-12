@@ -27,6 +27,8 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Collections;
 using System.Runtime.ConstrainedExecution;
 using System.Reflection.Metadata;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace DataAccessLogic
 {
@@ -156,9 +158,24 @@ namespace DataAccessLogic
             var Credentials = new SigningCredentials(SymmetricKey, SecurityAlgorithms.HmacSha256);
             string Duration = "60";
 
+            //var utente = this.Utentes.SingleOrDefault(u => u.Email == Utente.Email);
+            //if (utente != null)
+            //{
+            //    var role = this.Ruolos.SingleOrDefault(r => r.ID == utente.IDRuolo);
+            //    if (role != null)
+            //    {
+            //        var roleName = (role.ID == 1) ? "Utente" : "Amministratore";
+
+            //        ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
+            //        {
+            //            new Claim(ClaimTypes.Email, Utente.Email),
+            //            new Claim(ClaimTypes.Role, role.Nome)
+            //        });
+
+
             Claim[] Claims = new[]
             {
-                new Claim("Email", Utente.Email)
+                 new Claim("Email", Utente.Email)
             };
 
             var JwtToken = new JwtSecurityToken
@@ -419,17 +436,69 @@ public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
                             IDOrdine = NuovoOrdine.ID,
                             IDProdotto = ProdottoEsiste.ID,
                             Quantita = Prodotto.Quantita,
-                            //Prezzo = ProdottoEsiste.Prezzo
                         };
 
                         this.Ordiniprodottis.Add(DettaglioOrdine);
                     }
-              
+
                     this.SaveChanges();
 
-                    transaction.Commit();
+                    //Email
+                    try
+                    {
+                        //Autenticazione email
+                        var config = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json", optional: false)
+                            .Build();
+                        var emailConfig = config.GetSection("EmailConfiguration");
+                        var from = emailConfig["From"];
+                        var password = emailConfig["Password"];
+                        var host = emailConfig["Host"];
+                        var port = int.Parse(emailConfig["Port"]);
+                        var enablessl = bool.Parse(emailConfig["EnableSssl"]);
 
-                    return true;
+                        var body = "Dettagli dell'ordine:\n\n";
+                        body += $"Utente: {Utente.Nome} {Utente.Cognome}\n";
+                        body += $"Indirizzo di spedizione: {nuovoOrdine.IndirizzoSpedizione}\n\n";
+                        body += "Prodotti:\n";
+                        foreach (Prodotto prodotto in nuovoOrdine.Prodotti)
+                        {
+                            body += $"{prodotto.Quantita} {prodotto.Nome} {prodotto.Prezzo}€\n";
+                        }
+                        body += $"Pagamento: {pagamentoEsiste.Nome}\n";
+                        body += $"Corriere: {corriereEsiste.Nome}\n";
+
+                        MailMessage mailMessage = new MailMessage();
+                        SmtpClient smtpClient = new SmtpClient();
+                        mailMessage.From = new MailAddress(from);
+                        mailMessage.To.Add(new MailAddress(Email));
+                        mailMessage.Subject = "Conferma ordine";
+                        mailMessage.Body = body;
+                        smtpClient.Port = port;
+                        smtpClient.Host = host;
+                        smtpClient.EnableSsl = enablessl;
+                        smtpClient.UseDefaultCredentials = false;
+                        smtpClient.Credentials = new NetworkCredential(from, password);
+                        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        smtpClient.Timeout = 10000; //impostiamo un timeout di 10 secondi
+
+                        //Autenticazione email
+                        smtpClient.SendCompleted += (s, e) =>
+                        {
+                            if (e.UserState != null)
+                            {
+                                ((MailMessage)e.UserState).Dispose();
+                            }
+                        };
+                        smtpClient.SendAsync(mailMessage, mailMessage);
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException("Email non inviata" + ex.Message);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -477,6 +546,29 @@ public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
                                              Rating = p.Rating,
                                              IDCategoria = p.IDCategoria,
                                          }).ToList(),
+                         })
+                         .GroupBy(o => o.ID)
+                         .Select(g => new OrdiniUtente
+                         {
+                             ID = g.Key,
+                             Data = g.First().Data,
+                             IndirizzoSpedizione = g.First().IndirizzoSpedizione,
+                             Quantita = g.Sum(o => o.Quantita),
+                             NomePagamento = g.First().NomePagamento,
+                             NomeCorriere = g.First().NomeCorriere,
+                             NomeStato = g.First().NomeStato,
+                             Commento = g.First().Commento,
+                             Prodotti = g.SelectMany(o => o.Prodotti)
+                                         .GroupBy(p => p.ID)
+                                         .Select(pg => new Prodotto
+                                         {
+                                             ID = pg.Key,
+                                             Nome = pg.First().Nome,
+                                             Quantita = pg.Sum(p => p.Quantita),
+                                             Prezzo = pg.First().Prezzo,
+                                             Rating = pg.First().Rating,
+                                             IDCategoria = pg.First().IDCategoria,
+                                         }).ToList()
                          }).ToList();
             return query;
         }

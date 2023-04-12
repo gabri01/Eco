@@ -2536,11 +2536,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\ECommerceAP\\ECommerceAP.csproj",
+      "projectUniqueName": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\ECommerceAP\\ECommerceAP.csproj",
       "projectName": "ECommerceAP",
-      "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\ECommerceAP\\ECommerceAP.csproj",
+      "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\ECommerceAP\\ECommerceAP.csproj",
       "packagesPath": "C:\\Users\\Utente\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\ECommerceAP\\obj\\",
+      "outputPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\ECommerceAP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Utente\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2557,17 +2557,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\BusinessClass\\BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\BusinessClass\\BusinessLogic.csproj"
+            "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\BusinessClass\\BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\BusinessClass\\BusinessLogic.csproj"
             },
-            "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj": {
-              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj"
+            "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj": {
+              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj"
             },
-            "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj": {
-              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj"
+            "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj": {
+              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj"
             },
-            "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Models\\Models.csproj": {
-              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Models\\Models.csproj"
+            "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Models\\Models.csproj"
             }
           }
         }

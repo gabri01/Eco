@@ -2280,11 +2280,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj",
+      "projectUniqueName": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj",
       "projectName": "DataAccessLogic",
-      "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj",
+      "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj",
       "packagesPath": "C:\\Users\\Utente\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\DataAccessLogic\\obj\\",
+      "outputPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\DataAccessLogic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Utente\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2301,11 +2301,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj": {
-              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj"
+            "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj": {
+              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj"
             },
-            "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Models\\Models.csproj": {
-              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Models\\Models.csproj"
+            "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Models\\Models.csproj"
             }
           }
         }

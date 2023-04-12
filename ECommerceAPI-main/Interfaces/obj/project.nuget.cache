@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "arcGjdfwuxq3sLa+Ccq74VPLFQwjB5f8R1GoVMHt5LXuOUSl5J2I0UylIzhuMXj1xoGkh4a08ys3WXrIe3qCDA==",
+  "dgSpecHash": "kxpAKSSkjkK+5oqv02lFwPmtthQrRQvuWHbTIPBfed2N/nFQrkfdkQ1I1tyjdqUHcltlI2nGsGghwfA7Ox5CcA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Utente\\Desktop\\Ecommerce4\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj",
+  "projectFilePath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\Interfaces\\Interfaces.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Utente\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.15\\microsoft.aspnetcore.authentication.jwtbearer.6.0.15.nupkg.sha512",
     "C:\\Users\\Utente\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

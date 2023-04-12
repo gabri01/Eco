@@ -1,4 +1,5 @@
 ﻿using System.Runtime.ConstrainedExecution;
+using System.Security.Claims;
 using Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,17 +21,28 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpGet("GetOrdine")]
+        //[Authorize(Roles = "Utente")]
         [Authorize]
         public IActionResult Get()
         {
+            //var userRole = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+            //if (!userRole.Contains("Utente"))
+            //{
+            //    return Forbid();
+            //}
             var IdUtenteEmailClaim = User.Claims.FirstOrDefault(e => e.Type.Equals("Email",
                 StringComparison.InvariantCultureIgnoreCase));
-
+            if (IdUtenteEmailClaim == null)
+            {
+                return BadRequest("L'email non appartiene all'utente");
+            }
             return Ok(business.GetOrdini(IdUtenteEmailClaim.Value));
         }
 
         //Per Amministratore
         [HttpDelete("DeleteOrderByUser")]
+        //[Authorize(Roles = "Amministratore")]
+        [Authorize]
         public IActionResult Delete(int idOrdine, string email)
         {
             try
@@ -46,6 +58,7 @@ namespace ECommerceAP.Controllers
 
         //Per utente
         [HttpDelete("DeleteOrder")]
+        //[Authorize(Roles = "Utente")]
         [Authorize]
         public IActionResult Delete(int idOrdine)
         {
@@ -64,6 +77,7 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpPut("UpdateOrder")]
+        //[Authorize(Roles = "Amministratore")]
         [Authorize]
         public IActionResult Update(int idOrdine, int idStato)
         {
@@ -79,6 +93,7 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpPost("NewOrdine")]
+        //[Authorize(Roles = "Utente")]
         [Authorize]
         public IActionResult Insert(NuovoOrdine nuovoOrdine)
         {
