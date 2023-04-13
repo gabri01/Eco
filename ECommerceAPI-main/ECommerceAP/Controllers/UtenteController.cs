@@ -3,6 +3,7 @@ using Models;
 using Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,7 +19,7 @@ namespace ECommerceAP.Controllers
             this.business = business;
         }
         [HttpGet("GetByID")]
-        //[Authorize(Roles = "Amministratore")]
+        [Authorize(Roles = "Amministratore")]
         public IActionResult Get()
         {
             var IdUtenteEmailClaim = User.Claims.FirstOrDefault(e => e.Type.Equals("Email",
@@ -30,9 +31,15 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpPut("Modifica")]
-        //[Authorize(Roles = "Utente")]
+        [Authorize(Roles = "Utente")]
         public IActionResult Update(string Nome, string Cognome, string Email)
         {
+            var userRole = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+            if (!userRole.Contains("Utente"))
+            {
+                return Forbid();
+            }
+
             var IdUtenteEmailClaim = User.Claims.FirstOrDefault(e => e.Type.Equals("Email",
                          StringComparison.InvariantCultureIgnoreCase));
 
@@ -61,4 +68,3 @@ namespace ECommerceAP.Controllers
         }
     }
 }
-

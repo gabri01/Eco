@@ -21,15 +21,15 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpGet("GetOrdine")]
-        //[Authorize(Roles = "Utente")]
-        [Authorize]
+        [Authorize(Roles = "Utente")]
         public IActionResult Get()
         {
-            //var userRole = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
-            //if (!userRole.Contains("Utente"))
-            //{
-            //    return Forbid();
-            //}
+            var userRole = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+            if (!userRole.Contains("Utente"))
+            {
+                return Forbid();
+            }
+
             var IdUtenteEmailClaim = User.Claims.FirstOrDefault(e => e.Type.Equals("Email",
                 StringComparison.InvariantCultureIgnoreCase));
             if (IdUtenteEmailClaim == null)
@@ -41,8 +41,7 @@ namespace ECommerceAP.Controllers
 
         //Per Amministratore
         [HttpDelete("DeleteOrderByUser")]
-        //[Authorize(Roles = "Amministratore")]
-        [Authorize]
+        [Authorize(Roles = "Amministratore")]
         public IActionResult Delete(int idOrdine, string email)
         {
             try
@@ -58,10 +57,15 @@ namespace ECommerceAP.Controllers
 
         //Per utente
         [HttpDelete("DeleteOrder")]
-        //[Authorize(Roles = "Utente")]
-        [Authorize]
+        [Authorize(Roles = "Utente")]
         public IActionResult Delete(int idOrdine)
         {
+            var userRole = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+            if (!userRole.Contains("Utente"))
+            {
+                return Forbid();
+            }
+
             var IdUtenteEmailClaim = User.Claims.FirstOrDefault(e => e.Type.Equals("Email",
              StringComparison.InvariantCultureIgnoreCase));
 
@@ -77,8 +81,7 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpPut("UpdateOrder")]
-        //[Authorize(Roles = "Amministratore")]
-        [Authorize]
+        [Authorize(Roles = "Amministratore")]
         public IActionResult Update(int idOrdine, int idStato)
         {
             try
@@ -93,10 +96,15 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpPost("NewOrdine")]
-        //[Authorize(Roles = "Utente")]
-        [Authorize]
+        [Authorize(Roles = "Utente")]
         public IActionResult Insert(NuovoOrdine nuovoOrdine)
         {
+            var userRole = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+            if (!userRole.Contains("Utente"))
+            {
+                return Forbid();
+            }
+
             var IdUtenteEmailClaim = User.Claims.FirstOrDefault(e => e.Type.Equals("Email",
              StringComparison.InvariantCultureIgnoreCase));
 

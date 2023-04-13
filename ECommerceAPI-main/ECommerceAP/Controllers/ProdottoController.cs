@@ -25,8 +25,7 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpPost("InsertProdotto")]
-        //[Authorize(Roles = "Amministratore")]
-        [Authorize]
+        [Authorize(Roles = "Amministratore")]
         public long InsertProdotto(Prodotto prodotto)
         {
             return (business.InsertProdotto(prodotto));
@@ -34,8 +33,7 @@ namespace ECommerceAP.Controllers
 
 
         [HttpDelete("DeleteProduct")]
-        //[Authorize(Roles = "Amministratore")]
-        [Authorize]
+        [Authorize(Roles = "Amministratore")]
         public IActionResult Delete(int idProdotto)
         {
             try
@@ -50,8 +48,7 @@ namespace ECommerceAP.Controllers
         }
 
         [HttpPut("UpdateProdotto")]
-        //[Authorize(Roles = "Amministratore")]
-        [Authorize]
+        [Authorize(Roles = "Amministratore")]
         public IActionResult Update(Prodotto prodotto)
         {
             if (prodotto == null)

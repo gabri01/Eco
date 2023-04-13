@@ -158,35 +158,39 @@ namespace DataAccessLogic
             var Credentials = new SigningCredentials(SymmetricKey, SecurityAlgorithms.HmacSha256);
             string Duration = "60";
 
-            //var utente = this.Utentes.SingleOrDefault(u => u.Email == Utente.Email);
-            //if (utente != null)
-            //{
-            //    var role = this.Ruolos.SingleOrDefault(r => r.ID == utente.IDRuolo);
-            //    if (role != null)
-            //    {
-            //        var roleName = (role.ID == 1) ? "Utente" : "Amministratore";
-
-            //        ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
-            //        {
-            //            new Claim(ClaimTypes.Email, Utente.Email),
-            //            new Claim(ClaimTypes.Role, role.Nome)
-            //        });
-
-
-            Claim[] Claims = new[]
+            var utente = this.Utentes.SingleOrDefault(u => u.Email == Utente.Email);
+            if (utente != null)
             {
-                 new Claim("Email", Utente.Email)
-            };
+                var role = this.Ruolos.SingleOrDefault(r => r.ID == utente.IDRuolo);
+                if (role != null)
+                {
+                    var roleName = (role.ID == 1) ? "Utente" : "Amministratore";
 
-            var JwtToken = new JwtSecurityToken
-            (
-                issuer: "localhost",
-                audience: "localhost",
-                claims: Claims,
-                expires: DateTime.Now.AddMinutes(Int32.Parse(Duration)),
-                signingCredentials: Credentials
-            );
-            return new JwtSecurityTokenHandler().WriteToken(JwtToken);
+                    //ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
+                    //{
+                    //    new Claim(ClaimTypes.Email, Utente.Email),
+                    //    new Claim(ClaimTypes.Role, role.Nome)
+                    //});
+
+
+                    Claim[] Claims = new[]
+                    {
+                        new Claim("Email", Utente.Email),
+                        new Claim(ClaimTypes.Role, role.Nome)
+                    };
+
+                    var JwtToken = new JwtSecurityToken
+                    (
+                        issuer: "localhost",
+                        audience: "localhost",
+                        claims: Claims,
+                        expires: DateTime.Now.AddMinutes(Int32.Parse(Duration)),
+                        signingCredentials: Credentials
+                    );
+                    return new JwtSecurityTokenHandler().WriteToken(JwtToken);
+                }
+            }
+            return null;
         }
 
         public bool VerificaUtenteEsistente(string Email)
@@ -210,7 +214,7 @@ namespace DataAccessLogic
                 Nome = NuovoUtente.Nome,
                 Email = NuovoUtente.Email,
                 Password = NuovoUtente.Password,
-                IDRuolo = 2
+                IDRuolo = 1
             };
             var InsertUtente = this.Utentes.Add(Utente);
             this.SaveChanges();  
@@ -218,6 +222,7 @@ namespace DataAccessLogic
             return UtenteInserito.ID;
         }
 
+  
         public bool ModificaUtente(string Nome, string Cognome, string Email)
         {
             using (IDbContextTransaction transaction = this.Database.BeginTransaction())
