@@ -20,7 +20,7 @@ namespace ECommerceAP.Controllers
             this.business = business;
         }
 
-        [HttpGet("GetOrdine")]
+        [HttpGet("Get")]
         [Authorize(Roles = "Utente")]
         public IActionResult Get()
         {
@@ -40,7 +40,7 @@ namespace ECommerceAP.Controllers
         }
 
         //Per Amministratore
-        [HttpDelete("DeleteOrderByUser")]
+        [HttpDelete("Delete")]
         [Authorize(Roles = "Amministratore")]
         public IActionResult Delete(int idOrdine, string email)
         {
@@ -56,7 +56,7 @@ namespace ECommerceAP.Controllers
         }
 
         //Per utente
-        [HttpDelete("DeleteOrder")]
+        [HttpDelete("DeleteOrderByUser")]
         [Authorize(Roles = "Utente")]
         public IActionResult Delete(int idOrdine)
         {
@@ -80,13 +80,13 @@ namespace ECommerceAP.Controllers
             }
         }
 
-        [HttpPut("UpdateOrder")]
+        [HttpPut("Update")]
         [Authorize(Roles = "Amministratore")]
-        public IActionResult Update(int idOrdine, int idStato)
+        public IActionResult Update(int idOrdine, int idStato, string Email)
         {
             try
             {
-                var result = business.UpdateOrder(idOrdine, idStato);
+                var result = business.UpdateOrder(idOrdine, idStato, Email);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace ECommerceAP.Controllers
             }
         }
 
-        [HttpPost("NewOrdine")]
+        [HttpPost("Insert")]
         [Authorize(Roles = "Utente")]
         public IActionResult Insert(NuovoOrdine nuovoOrdine)
         {

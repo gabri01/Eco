@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AbRThs3Swi/iz/HTPMRET9Gn3lOpWQTjh/If7KUQ8frAyCWpeacOvC2T2dJfnDhJZebzHTT4wg44FZoRc21EuQ==",
+  "dgSpecHash": "H+mB9njYpuG8rokoC8tkbQnrCkGTrjWcGRTV7KG8g49D9ly+vOx4yxAqZlykx36BUlBNCSYq4eRDxXFUBzi5/Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Utente\\Desktop\\Ecommerce6\\ECommerceAPI-main\\DataAccessLogic\\DataAccessLogic.csproj",
   "expectedPackageFiles": [
@@ -39,6 +39,8 @@
     "C:\\Users\\Utente\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Utente\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Utente\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\Utente\\.nuget\\packages\\serilog\\2.10.0\\serilog.2.10.0.nupkg.sha512",
+    "C:\\Users\\Utente\\.nuget\\packages\\serilog.sinks.file\\5.0.0\\serilog.sinks.file.5.0.0.nupkg.sha512",
     "C:\\Users\\Utente\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Utente\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
     "C:\\Users\\Utente\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",

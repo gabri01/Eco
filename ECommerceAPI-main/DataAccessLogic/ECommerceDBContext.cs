@@ -29,6 +29,8 @@ using System.Runtime.ConstrainedExecution;
 using System.Reflection.Metadata;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Models.Models;
+using Serilog;
 
 namespace DataAccessLogic
 {
@@ -39,6 +41,10 @@ namespace DataAccessLogic
         public ECommerceDBContext(string connString)
         {
             this.connString = connString;
+            //Serilog
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("Serilog")["EXCEPTION"])
+                .CreateLogger();
         }
 
         public ECommerceDBContext(DbContextOptions<ECommerceDBContext> options) : base(options) {}
@@ -252,9 +258,20 @@ namespace DataAccessLogic
             return false;
         }
 
-        public List<Prodotto> GetAllProdotti()
+        public List<ProdottoCategoria> GetAllProdotti()
         {
-            return this.Prodottos.ToList();
+            var prodotti = from p in this.Prodottos
+                           join c in this.Categorias on p.IDCategoria equals c.ID
+                           select new ProdottoCategoria
+                           {
+                               ID = p.ID,
+                               Nome = p.Nome,
+                               Prezzo = p.Prezzo,
+                               Quantita = p.Quantita,
+                               Rating = p.Rating,
+                               NomeCategoria = c.Nome
+                           };
+            return prodotti.ToList();     
         }
 
         public long InsertProdotto(Prodotto prodotto)
@@ -375,7 +392,7 @@ namespace DataAccessLogic
         //    Quantita = op.Quantita
         //}
 
-public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
+        public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
         {
             using (IDbContextTransaction transaction = this.Database.BeginTransaction())
             {
@@ -448,7 +465,6 @@ public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
 
                     this.SaveChanges();
 
-                    //Email
                     try
                     {
                         //Autenticazione email
@@ -503,12 +519,14 @@ public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
                     catch (Exception ex)
                     {
                         throw new ArgumentException("Email non inviata" + ex.Message);
+                        Log.Warning(ex.ToString());
                     }
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-
+                    //Serilog
+                    Log.Warning(ex.ToString());
                     throw new Exception(ex.Message);
                 }
             }
@@ -599,21 +617,17 @@ public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
                     //Rimozione ordine
                     this.Ordines.Remove(ordine);
                     this.SaveChanges();
-                    return idOrdine;
+                    return ordine.ID;
                 }
             }
         }
 
         public int DeleteOrder(int idOrdine, string Email)
         {
-            var StEmail = (
-               from u in this.Utentes
-               where u.Email == Email
-               select u).SingleOrDefault();
+            // Verifica ordine non esistente
+            var ordine = this.Ordines.SingleOrDefault(o => o.ID == idOrdine);
 
-                // Verifica ordine non esistente
-                var ordine = this.Ordines.SingleOrDefault(o => o.ID == idOrdine);
-                if (ordine == null)
+            if (ordine == null)
                 {
                     throw new Exception("Ordine da rimuovere indicato non esistente");
                 }
@@ -667,10 +681,16 @@ public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
             }
         }
 
-        public int UpdateOrder(int idOrdine, int idStato)
+        public int UpdateOrder(int idOrdine, int idStato, string Email)
         {
-            // Verifica ordine non esistente
             var ordine = this.Ordines.SingleOrDefault(o => o.ID == idOrdine);
+            var Utente = (
+                        from u in this.Utentes
+                        where u.Email == Email
+                        select u
+                    ).SingleOrDefault();
+
+            // Verifica ordine non esistente
             if (ordine == null)
             {
                 throw new Exception("L'ordine indicato da apportare modifiche non trovato, riprova");
@@ -688,7 +708,61 @@ public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email)
                     // Modifica ordine
                     ordine.IdStato = stato.ID;
                     this.SaveChanges();
-                    return ordine.ID;
+                    //Email
+                    try
+                    {
+                        //Configurazione email
+                        var config = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json", optional: false)
+                            .Build();
+                        var emailConfig = config.GetSection("EmailConfiguration");
+                        var from = emailConfig["From"];
+                        var password = emailConfig["Password"];
+                        var host = emailConfig["Host"];
+                        var port = int.Parse(emailConfig["Port"]);
+                        var enablessl = bool.Parse(emailConfig["EnableSssl"]);
+
+                        var body = "Il tuo ordine è stato spedito!\n\n";
+                        body += $"Utente: {Utente.Nome} {Utente.Cognome}\n";
+                        body += $"Indirizzo di spedizione: {ordine.IndirizzoSpedizione}\n\n";
+                        //body += "Prodotti:\n";
+                        //foreach (Prodotto prodotto in ordine.Prodotti)
+                        //{
+                        //    body += $"{prodotto.Quantita} {prodotto.Nome} {prodotto.Prezzo}€\n";
+                        //}
+                        //body += $"Pagamento: {pagamentoEsiste.Nome}\n";
+                        //body += $"Corriere: {corriereEsiste.Nome}\n";
+
+                        MailMessage mailMessage = new MailMessage();
+                        SmtpClient smtpClient = new SmtpClient();
+                        mailMessage.From = new MailAddress(from);
+                        mailMessage.To.Add(new MailAddress(Email));
+                        mailMessage.Subject = "Ordine spedito";
+                        mailMessage.Body = body;
+                        smtpClient.Port = port;
+                        smtpClient.Host = host;
+                        smtpClient.EnableSsl = enablessl;
+                        smtpClient.UseDefaultCredentials = false;
+                        smtpClient.Credentials = new NetworkCredential(from, password);
+                        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        smtpClient.Timeout = 10000; //impostiamo un timeout di 10 secondi
+
+                        //Autenticazione email
+                        smtpClient.SendCompleted += (s, e) =>
+                        {
+                            if (e.UserState != null)
+                            {
+                                ((MailMessage)e.UserState).Dispose();
+                            }
+                        };
+                        smtpClient.SendAsync(mailMessage, mailMessage);
+                        return ordine.ID;
+                    }
+                    catch (Exception ex) 
+                    {
+                        throw new ArgumentException("Email non inviata" + ex.Message);
+                        Log.Warning(ex.ToString());
+                    }
                 }
             }
         }

@@ -3,6 +3,7 @@ using Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Serilog;
 
 namespace ECommerceAP.Controllers
 {
@@ -18,7 +19,7 @@ namespace ECommerceAP.Controllers
             this.business = business;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("Get")]
         public IActionResult Get()
         {
             return Ok(business.GetAllProdotti());
@@ -32,7 +33,7 @@ namespace ECommerceAP.Controllers
         }
 
 
-        [HttpDelete("DeleteProduct")]
+        [HttpDelete("Delete")]
         [Authorize(Roles = "Amministratore")]
         public IActionResult Delete(int idProdotto)
         {
@@ -47,7 +48,7 @@ namespace ECommerceAP.Controllers
             }
         }
 
-        [HttpPut("UpdateProdotto")]
+        [HttpPut("Update")]
         [Authorize(Roles = "Amministratore")]
         public IActionResult Update(Prodotto prodotto)
         {
@@ -61,7 +62,7 @@ namespace ECommerceAP.Controllers
             }
         }
 
-        [HttpGet("SearchByName")]
+        [HttpGet("ByName")]
         public IActionResult SearchProducts(string nomeProdotto)
         {
             try
@@ -75,7 +76,7 @@ namespace ECommerceAP.Controllers
             }
         }
 
-        [HttpGet("SearchByCategory")]
+        [HttpGet("ByCategory")]
         public IActionResult Search(string nomeCategoria)
         {
             try

@@ -13,7 +13,7 @@ namespace ECommerceAP.Controllers
        {
            this.business = business;
        }
-       [HttpGet("GetAll")]
+       [HttpGet("Get")]
        public IActionResult Get()
        {
            return Ok(business.GetAllPagamenti());

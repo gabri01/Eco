@@ -4,6 +4,7 @@ using Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Serilog;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,8 +18,12 @@ namespace ECommerceAP.Controllers
         public UtenteController(IBusiness business)
         {
             this.business = business;
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("Serilog")["LOGIN"])
+                .CreateLogger();
         }
-        [HttpGet("GetByID")]
+
+        [HttpGet("Get")]
         [Authorize(Roles = "Amministratore")]
         public IActionResult Get()
         {
@@ -30,7 +35,7 @@ namespace ECommerceAP.Controllers
             return Ok(business.GetUtenteByID(IdUtenteEmailClaim.Value));
         }
 
-        [HttpPut("Modifica")]
+        [HttpPut("Update")]
         [Authorize(Roles = "Utente")]
         public IActionResult Update(string Nome, string Cognome, string Email)
         {
@@ -54,11 +59,14 @@ namespace ECommerceAP.Controllers
         public IActionResult Login(Login Utente)
         {
             if (business.EsisteUtente(Utente))
+            {
+                Log.Information(Utente.Email.ToString());
                 return Ok(business.Login(Utente));
+            }
             return BadRequest(new { message = "Utente non registrato" });
         }
 
-        [HttpPost("Registrazione")]
+        [HttpPost("Signup")]
         public IActionResult Insert(Registrazione Utente)
         {
             if (business.VerificaUtenteEsistente(Utente.Email))

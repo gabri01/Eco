@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Models;
 using Interfaces;
+using Models.Models;
 
 namespace BusinessLogic
 {
@@ -36,7 +37,11 @@ namespace BusinessLogic
         {
             return dal.ModificaUtente(Nome, Cognome, Email);
         }
-        public List<Prodotto> GetAllProdotti()
+        //public List<Prodotto> GetAllProdotti()
+        //{
+        //    return dal.GetAllProdotti();
+        //}
+        public List<ProdottoCategoria> GetAllProdotti()
         {
             return dal.GetAllProdotti();
         }
@@ -90,9 +95,9 @@ namespace BusinessLogic
         {
             return dal.DeleteProduct(idProdotto);
         }
-        public int UpdateOrder(int idOrdine, int idStato)
+        public int UpdateOrder(int idOrdine, int idStato, string Email)
         {
-            return dal.UpdateOrder(idOrdine, idStato);
+            return dal.UpdateOrder(idOrdine, idStato, Email);
         }
         public List<Prodotto> SearchProductsByName(string nomeProdotto)
         {

@@ -393,3 +393,5 @@ C:\Users\Utente\Desktop\Ecommerce6\ECommerceAPI-main\ECommerceAP\obj\Debug\net6.
 C:\Users\Utente\Desktop\Ecommerce6\ECommerceAPI-main\ECommerceAP\obj\Debug\net6.0\ECommerceAP.pdb
 C:\Users\Utente\Desktop\Ecommerce6\ECommerceAPI-main\ECommerceAP\obj\Debug\net6.0\ECommerceAP.genruntimeconfig.cache
 C:\Users\Utente\Desktop\Ecommerce6\ECommerceAPI-main\ECommerceAP\obj\Debug\net6.0\ref\ECommerceAP.dll
+C:\Users\Utente\Desktop\Ecommerce6\ECommerceAPI-main\ECommerceAP\bin\Debug\net6.0\Serilog.dll
+C:\Users\Utente\Desktop\Ecommerce6\ECommerceAPI-main\ECommerceAP\bin\Debug\net6.0\Serilog.Sinks.File.dll

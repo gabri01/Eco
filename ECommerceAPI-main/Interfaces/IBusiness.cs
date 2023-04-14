@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using Models.Models;
 
 namespace Interfaces
 {
@@ -15,7 +16,8 @@ namespace Interfaces
         public bool EsisteUtente(Login Utente);
         public long Registrazione(Registrazione NuovoUtente);
         public bool ModificaUtente(string Nome, string Cognome, string Email);
-        public List<Prodotto> GetAllProdotti();
+        //public List<Prodotto> GetAllProdotti();
+        public List<ProdottoCategoria> GetAllProdotti();
         public List<OrdiniUtente> GetOrdini(string Email);
         public bool InsertOrdine(NuovoOrdine nuovoOrdine, string Email);
         //public bool InsertOrdine(List<Prodotto> Prodotti, string Email, string MetodoPagamento, string Corriere, string IndirizzoSpedizione, string Commento);
@@ -23,7 +25,7 @@ namespace Interfaces
         public int DeleteOrderByUser(int idOrdine, string email);
         public int UpdateProduct(Prodotto prodotto);
         public int DeleteProduct(int idProdotto);
-        public int UpdateOrder(int idOrdine, int idStato);
+        public int UpdateOrder(int idOrdine, int idStato, string Email);
         public List<Corriere> GetAllCorrieri();
         public List<Pagamento> GetAllPagamenti();
         public List<Categoria> GetAllCategorie();
