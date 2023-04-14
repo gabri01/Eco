@@ -23,7 +23,7 @@ namespace ECommerceAP.Controllers
                 .CreateLogger();
         }
 
-        [HttpGet("Get")]
+        [HttpGet("GetById")]
         [Authorize(Roles = "Amministratore")]
         public IActionResult Get()
         {
